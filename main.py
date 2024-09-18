@@ -6,14 +6,12 @@ def get_english_words():
     try:
         response = requests.get(url)
 
-        print(response.text)
-
         soup = BeautifulSoup(response.content, "html.parser")
-        english_words = soup.find_all("div", id="random_word")
-        word_definition = soup.find_all("div", id="random_word_definition")
+        english_words = soup.find("div", id="random_word").text.strip()
+        word_definition = soup.find("div", id="random_word_definition").text.strip()
 
         return {
-            "english_words" : english_words
+            "english_words" : english_words,
             "word_definition" : word_definition
         }
     except:
